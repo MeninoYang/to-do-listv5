@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do list</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" type="image/png" href="icon.png">
+</head>
+<body>
+    <div class="gradiente-fundo">
+        <div class="listas-container" id="listasContainer">
+            <div id="lista1" class="box-to-do">
+                <h2>
+                    <span class="lista-titulo" onclick="setupEditTitle(this)">O que devo fazer?</span>
+                    <input type="text" class="input-titulo" style="display: none;" />
+                    <img src="icon.png" alt="icone da lista">
+                </h2>
+                <div class="coiso">
+                    <input type="text" placeholder="Escreva aqui...">
+                    <button onclick="addTask(this)">Adicionar</button>
+                </div>
+                <ul id="box-lista"></ul>
+            </div>
+           <button id="addListButton" onclick="addNewList()" class="add-button">+</button>
+        </div>
+    </div>
+    
+    <div id="cadastroModal" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar" onclick="closeModal('cadastroModal')">&times;</span>
+            <h2>Cadastro</h2>
+            <form id="formCadastro">
+                <input class="NomeCadastro" type="text" placeholder="Nome de Usuário" required>
+                <input class="EmailCadastro" type="email" placeholder="Email" required>
+                <input class="SenhaCadastro" type="password" placeholder="Senha" required>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal-login">
+        <div class="modal-conteudo-login">
+            <span class="fechar" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login</h2>
+            <form id="formLogin" onsubmit="event.preventDefault();">
+                <input class="EmailOuUsuario" type="text" id="emailOuUsuario" placeholder="Email ou Nome de Usuário">
+                <input class="SenhaLogin" type="password" id="password" placeholder="Senha">
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="menu-lateral-esquerda" id="menuLateralEsquerda">
+        <div class="menu-toggle-esquerda" onclick="toggleLeftMenu()">
+            <div class="arrow-esquerda"></div>
+        </div>
+        <div class="area-usuario" id="areaUsuario" style="display: none;">
+            <input type="file" id="photoInput" accept="image/*" onchange="previewImage(event)" style="display: none;">
+            <label for="photoInput" style="cursor: pointer;">
+                <img id="usuarioFoto" src="default_photo-removebg-preview.png" alt="Foto do Usuário">
+            </label>
+            <h3 id="usuarioNome">Nome do Usuário</h3>
+            <div class="usuario-actions">
+                <button id="logoutButton" onclick="logout()">Logout</button>
+            </div>
+            <div id="todoArea" style="display: none;">
+                <h3>Minhas To-Do Lists</h3>
+                <ul id="todoList">
+                </ul>
+            </div>
+        </div>
+        <div class="menu-content">
+            <div class="menu-buttons">
+                <button type="button" onclick="mostrarCadastroModal()">Cadastre-se</button>
+                <button type="button" onclick="mostrarLoginModal()">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-lateral" id="menuLateral">
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div class="arrow"></div>
+        </div>
+        <div id="deletedTasks">
+            <h3>Tasks Excluidas</h3>
+            <div id="emptyMessage">Esta tão silencioso aqui...</div>
+            <ul id="deletedTasksList"></ul>
+        </div>
+    </div>
+
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('taskModal')">&times;</span>
+            <h2>Detalhes da Tarefa</h2>
+            <p id="taskDetails"></p>
+            <p>Escolha o nível de importância:</p>
+            <div class="importance-button" onclick="setImportance('urgent')">Urgente</div>
+            <div class="importance-button" onclick="setImportance('important')">Importante</div>
+            <div class="importance-button" onclick="setImportance('not-important')">Não Muito Importante</div>
+        </div>
+    </div> 
+
+    <script src="script.js"></script>
+</body>
+</html>
