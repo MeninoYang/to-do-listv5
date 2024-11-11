@@ -37,14 +37,12 @@ function addTask(button) {
         const currentDate = new Date();
         const dateTime = `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`; 
 
-        // Adiciona o texto da tarefa (sem a data/hora)
         const taskTextNode = document.createTextNode(taskText);
         li.appendChild(taskTextNode);
 
-        // Adiciona o círculo preto para definir a importância depois do texto
         const circle = document.createElement("div");
         circle.classList.add("circle");
-        circle.onclick = () => openTaskModal(taskText, dateTime); // Passa a data e hora para o modal
+        circle.onclick = () => openTaskModal(taskText, dateTime); 
         li.appendChild(circle);
 
         const span = document.createElement("span");
@@ -69,12 +67,11 @@ function handleTaskClick(e) {
     if (e.target.tagName === "LI") {
         e.target.classList.toggle("verificado");
 
-        // Mantém o círculo preto para definir a importância
         if (!e.target.querySelector(".circle")) {
             const circle = document.createElement("div");
             circle.classList.add("circle");
             circle.onclick = () => openTaskModal(e.target.innerText.trim());
-            e.target.insertBefore(circle, e.target.firstChild); // Insere o círculo como o primeiro elemento dentro da tarefa
+            e.target.insertBefore(circle, e.target.firstChild); 
         }
 
         saveTasks(); 
@@ -92,14 +89,14 @@ function moveTaskToDeleted(target) {
     const taskText = target.parentElement.textContent.replace('\u00d7', '').trim();
     const taskChecked = target.parentElement.classList.contains("verificado");
     const currentDate = new Date();
-    const dateTime = `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`; // Corrigido para usar crases
+    const dateTime = `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`;
 
     const deletedTask = document.createElement("li");
     if (taskChecked) {
         deletedTask.classList.add("checked");
     }
     
-    deletedTask.innerHTML = `${taskText} <small>(${dateTime})</small> <button class="delete-btn">x</button>`; // Corrigido para usar crases
+    deletedTask.innerHTML = `${taskText} <small>(${dateTime})</small> <button class="delete-btn">x</button>`;
     deletedTask.setAttribute('data-original-list', target.parentElement.parentElement.id);
 
     deletedTasksList.appendChild(deletedTask);
@@ -141,18 +138,12 @@ function restoreTask(taskElement) {
     }
 
     const restoredTask = document.createElement("li");
-
-    // Adiciona o texto da tarefa
     const taskTextNode = document.createTextNode(taskText);
     restoredTask.appendChild(taskTextNode);
-
-    // Adiciona o círculo de importância após o texto
     const circle = document.createElement("div");
     circle.classList.add("circle");
-    circle.onclick = () => openTaskModal(taskText); // Reaplica o evento para abrir o modal
+    circle.onclick = () => openTaskModal(taskText); 
     restoredTask.appendChild(circle);
-
-    // Adiciona o botão de exclusão
     const span = document.createElement("span");
     span.innerHTML = "\u00d7";
     restoredTask.appendChild(span);
@@ -174,7 +165,7 @@ function restoreTask(taskElement) {
 function saveTasks() {
     const lists = document.querySelectorAll('.box-to-do ul');
     lists.forEach((ul, index) => {
-        localStorage.setItem(`tasksList${index}`, ul.innerHTML); // Corrigido para usar crases e aspas
+        localStorage.setItem(`tasksList${index}`, ul.innerHTML); 
     });
 
     localStorage.setItem("deletedTasks", deletedTasksList.innerHTML); 
@@ -187,7 +178,6 @@ function loadTasks() {
         ul.querySelectorAll('li').forEach(task => {
             task.addEventListener("click", handleTaskClick);
 
-            // Adiciona o círculo de importância, se ainda não estiver presente
             if (!task.querySelector(".circle")) {
                 const circle = document.createElement("div");
                 circle.classList.add("circle");
@@ -195,7 +185,6 @@ function loadTasks() {
                 circle.onclick = () => openTaskModal(taskText);
                 task.insertBefore(circle, task.firstChild);
             } else {
-                // Reativa o evento onclick do círculo existente
                 const circle = task.querySelector(".circle");
                 const taskText = task.textContent.replace("\u00d7", "").trim();
                 circle.onclick = () => openTaskModal(taskText);
@@ -228,7 +217,7 @@ function mostrarLoginModal() {
 function showModal(modalId) {
     const modal = document.getElementById(modalId);
     if (!modal) {
-        console.error(`Modal com o ID '${modalId}' não foi encontrado.`); // Corrigido para usar crases
+        console.error(`Modal com o ID '${modalId}' não foi encontrado.`); 
         return;
     }
     modal.style.display = "block"; 
@@ -509,9 +498,9 @@ function openTaskModal(taskText, dateTime) {
 
     // Cria um novo elemento para exibir a data e hora
     const taskDateTime = document.createElement("div");
-    taskDateTime.innerText = `Criado em: ${dateTime}`; // Define o texto da data e hora
-    taskDateTime.classList.add("task-datetime"); // Adiciona uma classe para possível estilização
-    taskDetails.appendChild(taskDateTime); // Adiciona ao modal
+    taskDateTime.innerText = `Criado em: ${dateTime}`; 
+    taskDateTime.classList.add("task-datetime");
+    taskDetails.appendChild(taskDateTime); 
 
     const modal = document.getElementById('taskModal');
     modal.style.display = 'block';
@@ -532,7 +521,7 @@ function setImportance() {
     const importance = importanceSelect.value;
     const taskText = document.getElementById("taskDetails").innerText;
 
-    alert(`Importância definida como: ${importance} para a tarefa: ${taskText}`); // Corrigido para usar crases
+    alert(`Importância definida como: ${importance} para a tarefa: ${taskText}`); 
 
     closeModal('taskModal');
 }
