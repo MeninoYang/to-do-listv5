@@ -496,7 +496,6 @@ function openTaskModal(taskText, dateTime) {
 
     taskDetails.innerText = taskText;
 
-    // Cria um novo elemento para exibir a data e hora
     const taskDateTime = document.createElement("div");
     taskDateTime.innerText = `Criado em: ${dateTime}`; 
     taskDateTime.classList.add("task-datetime");
